@@ -1,0 +1,41 @@
+<html>
+<head>
+<h1>{{ question.question_text }}</h1>
+<style> 
+    table {
+        width:50%;
+    }
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: center;
+    }
+    table tr:nth-child(even) {
+        background-color: #ceeed9;
+    }
+    table tr:nth-child(odd) {
+        background-color:#fff;
+    }
+    table th {
+        background-color: black;
+        color: white;
+    }
+</style>
+</head>
+<body>
+<table>
+    <tr>
+       <th>Choice</th>
+       <th>Vote(s)</th> 
+    </tr>
+    {% for choice in question.choice_set.all %}
+    <tr><td>{{ choice.choice_text }}</td>
+    <td>{{ choice.votes }}</td></tr>
+    {% endfor %}
+</table>
+<br><a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+</body>
+</html>
