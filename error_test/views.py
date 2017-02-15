@@ -10,22 +10,58 @@ from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
+    model = Question
+    template_name = 'error_test/index.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
         """Return the last five published questions."""
         return Question.objects.order_by('-pub_date')
 
-
 class DetailView(generic.DetailView):
     model = Question
-    template_name = 'polls/detail.html'
+    template_name = 'error_test/detail.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Question.objects.order_by('-pub_date')
+
+def quiz(request,question_id):
+    question_list = Question.objects.all()
+    #output = ', '.join([q.question_text for q in latest_question_list])
+    template = loader.get_template('error_test/detail.html')
+    context = {
+        'question_list': question_list,
+    }
+    return HttpResponse(template.render(context, request))
+    
+
+
+def result(request):
+    if 'user' in request.POST:
+        user = request.POST['user']
+        q = Question.objects.get(pk=1)
+        answer_list = q.answer_set.all()
+        if user=="2": 
+            return HttpResponse(answer_list)
+        else:
+            return HttpResponse("incorrect")
+
+
+
+
+
+
+
+
+
+
 
 
 class ResultsView(generic.DetailView):
     model = Question
-    template_name = 'polls/results.html'
+    template_name = 'error_test/results.html'
     
 def vote(request, question_id):
     #if 'vote_button' in request.POST:
@@ -55,8 +91,7 @@ def addChoice(request,question_id):
  
             })        
         
-def addQuestion(request):
-    return render(request,"polls/addQuestion.html","")
+        
 
 def addQuestionSuccess(request):
     question = request.POST['new_question']

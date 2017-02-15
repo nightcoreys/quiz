@@ -1,0 +1,23 @@
+{% if question_list %}
+
+<form action="{% url 'error_test:result' %}" method="post">
+{% csrf_token %}
+    <ul>
+    {% for question in question_list %}
+        <li>{{ question.question_text }}</a></li>
+
+	{% for choice in question.choice_set.all %}
+    		<input type="radio" name="{{ question }}" id="choice	 {{ forloop.counter }}" value="{{ choice.id }}" />
+    		<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+	{% endfor %}
+
+
+<br><br>
+    {% endfor %}
+    
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<input type="submit" name="add_button" value="SUBMIT" /><br><br>
+</form>

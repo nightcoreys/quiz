@@ -10,6 +10,9 @@
 {% endfor %}
 <br><br>
 <input type="submit" name="vote_button" value="vote" /><br><br>
+</form>
+<form action="{% url 'polls:addChoice' question.id %}" method="post">
+{% csrf_token %}
 <input type="text" name="new_choice">
 <input type="submit" name="add_button" value="ADD" /><br><br>
 </form>

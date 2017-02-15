@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     url(r'^addQuestion/$', views.addQuestion, name='addQuestion'),
-    url(r'^addQuestion/success/$', views.addQuestionSuccess, name='addquestionsuccess'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^addQuestion/success/$', views.addQuestionSuccess, name='addQuestionSuccess'),
+    url(r'^(?P<question_id>[0-9]+)/addChoice/$', views.addChoice, name='addChoice'),
+]
