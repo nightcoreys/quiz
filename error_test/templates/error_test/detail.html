@@ -7,7 +7,7 @@
         <li>{{ question.question_text }}</a></li>
  <input type="hidden" name="question" value="{{ question.id }}"/>
 	{% for choice in question.choice_set.all %}
-    		<input type="radio" name= "answer-{{question.id}}" id="choice	 {{ forloop.counter }}" value="{{ choice.id }}" />
+    		<input type="radio" name= "answer-{{question.id}}" id="choice	 {{ forloop.counter }}" value="{{choice.choice_text}}" />
     		<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
 	{% endfor %}
 

@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Choice, Question
+from .models import Choice, Question,Answer
 
 
 class IndexView(generic.ListView):
@@ -39,23 +39,16 @@ def quiz(request):
 
 
 def result(request):
-    #point=0
-    #array=[]
-    
-    #for i in range (2):
-    #    ww = request.POST['choice.question.id']
-    #    array.append(ww)
-    #return HttpResponse(array)
-    #if question in request.POST:
-    #    q = Question.objects.get(pk=i)
-    #    answer_list = q.answer_set.all()
-    #    if user==answer_list: 
-    #        point = point+1
-    #return HttpResponse(point)
+    point=0
     questions = request.POST.getlist('question')
-    answers = [request.POST['answer-{}'.format(q)] for q in questions]
-    return HttpResponse(answers)
-            
+    for q in questions:
+        answers = request.POST['answer-{}'.format(q)] 
+        entry_list = Answer.objects.only('answer_text').get(pk=q).answer_text
+        
+        if answers == entry_list: 
+            point=point+1
+    return HttpResponse(point)
+        
 
 
 
