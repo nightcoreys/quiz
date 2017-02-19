@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+var x = 0;
+</script>
+{% if question_list %}
+
+
+{% csrf_token %}
+    <ul>
+
+    {% for question in question_list %}
+ 
+        <li>{{ question.question_text }}</a></li>
+ <ol>
+	{% for choice in question.choice_set.all %}
+    		
+    		<li for="choice{{ forloop.counter }}">{{ choice.choice_text }}</li>
+	{% endfor %}
+
+</ol><br>
+{% for answer in question.answer_set.all %}
+
+<p>correct answer is " {{ answers.i}} "</p>
+ 
+
+<p>correct answer is " {{ answer.answer_text }} "</p>
+{% endfor %}
+
+
+<script>
+
+
+
+
+x=x+1;
+i="demo";
+
+document.getElementById("demo").innerHTML = i;
+</script>
+
+
+
+<br><br>
+    {% endfor %}
+    
+    </ul>
+
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{{point}}
+{{answers}}
+</body>
+</html>
