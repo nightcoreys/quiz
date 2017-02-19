@@ -27,7 +27,7 @@ class DetailView(generic.DetailView):
         """Return the last five published questions."""
         return Question.objects.order_by('-pub_date')
 
-def quiz(request,question_id):
+def quiz(request):
     question_list = Question.objects.all()
     #output = ', '.join([q.question_text for q in latest_question_list])
     template = loader.get_template('error_test/detail.html')
@@ -39,14 +39,23 @@ def quiz(request,question_id):
 
 
 def result(request):
-    if 'user' in request.POST:
-        user = request.POST['user']
-        q = Question.objects.get(pk=1)
-        answer_list = q.answer_set.all()
-        if user=="2": 
-            return HttpResponse(answer_list)
-        else:
-            return HttpResponse("incorrect")
+    #point=0
+    #array=[]
+    
+    #for i in range (2):
+    #    ww = request.POST['choice.question.id']
+    #    array.append(ww)
+    #return HttpResponse(array)
+    #if question in request.POST:
+    #    q = Question.objects.get(pk=i)
+    #    answer_list = q.answer_set.all()
+    #    if user==answer_list: 
+    #        point = point+1
+    #return HttpResponse(point)
+    questions = request.POST.getlist('question')
+    answers = [request.POST['answer-{}'.format(q)] for q in questions]
+    return HttpResponse(answers)
+            
 
 
 

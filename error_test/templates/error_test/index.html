@@ -1,16 +1,5 @@
 <h1 align = center> ERROR TEST </h1><br>
 <h2> How To Use? </h2><br><br> 
-<a href="/error_test/1/">{{ "go to quiz" }}</a>
+<a href="/error_test/quiz/">{{ "go to quiz" }}</a>
 
-{% if latest_question_list %}
-
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/error_test/{{ question.id }}/">{{ question.question_text }}</a></li>
-    {% endfor %}
-    
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
 
