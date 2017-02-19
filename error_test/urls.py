@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^quiz/$', views.quiz, name='quiz'),
     url(r'^result/$', views.result, name='result'),
-    #url(r'^quiz/$', views.DetailView.as_view(), name='quiz'),
+    url(r'^HowToUse/$', views.howToUse, name='howToUse'),
+    url(r'^reference/$', views.reference, name='reference'),
 ]

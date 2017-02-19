@@ -5,7 +5,6 @@ from django.views import generic
 from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
-
 from .models import Choice, Question,Answer
 
 
@@ -15,7 +14,6 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
         return Question.objects.order_by('-pub_date')
 
 class DetailView(generic.DetailView):
@@ -35,29 +33,32 @@ def quiz(request):
     }
     return HttpResponse(template.render(context, request))
     
-
-
 def result(request):
     point=0
     array=[]
     answers=[]
     questions = request.POST.getlist('question')
     for q in questions:
-        answers = request.POST['answer-{}'.format(q)] 
-        entry_list = Answer.objects.only('answer_text').get(pk=q).answer_text
-        array.append(answers)
-        if answers == entry_list: 
+        user_answer = request.POST['user_answer-{}'.format(q)] 
+        answer = Answer.objects.only('answer_text').get(pk=q).answer_text
+        array.append(user_answer)
+        if user_answer == answer: 
             point=point+1
     question_list = Question.objects.all()
     template = loader.get_template('error_test/result.html')
     context = {
         'question_list': question_list,
         'point': point,
-        'answers': array,
-        
     }
     return HttpResponse(template.render(context, request))
     
-        
+def howToUse(request):
+    template = loader.get_template('error_test/howToUse.html')
+    return HttpResponse(template.render(request))
+
+def reference(request):
+    template = loader.get_template('error_test/reference.html')
+    return HttpResponse(template.render(request))
+      
 
 

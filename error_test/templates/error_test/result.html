@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html>
+<h1>Your score is {{point}}/10 .</h1>
+<form action="{% url 'error_test:quiz' %}" method="post">
+{% csrf_token %}
+<input type="submit" value="quiz again" /><br><br>
+</form>
+<head><style>
+table {
+    width:100%;
+}
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table#t01 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t01 th {
+    background-color: black;
+    color: white;
+}
+</style></head>
 <body>
 <script>
 var x = 0;
 </script>
 {% if question_list %}
+<table id="t01">
 
-
-{% csrf_token %}
     <ul>
-
     {% for question in question_list %}
- 
-        <li>{{ question.question_text }}</a></li>
+        <tr><td><li>{{ question.question_text }}</a></li>
  <ol>
-	{% for choice in question.choice_set.all %}
-    		
+	{% for choice in question.choice_set.all %}	
     		<li for="choice{{ forloop.counter }}">{{ choice.choice_text }}</li>
 	{% endfor %}
-
+<tr><td>
 </ol><br>
 {% for answer in question.answer_set.all %}
-
-<p>correct answer is " {{ answers.i}} "</p>
- 
-
 <p>correct answer is " {{ answer.answer_text }} "</p>
 {% endfor %}
-
-
 <script>
-
-
-
-
 x=x+1;
 i="demo";
-
-document.getElementById("demo").innerHTML = i;
+document.getElementById("demo").innerText = i;
 </script>
-
-
-
 <br><br>
-    {% endfor %}
-    
+    {% endfor %}    
     </ul>
-
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-{{point}}
-{{answers}}
 </body>
 </html>
