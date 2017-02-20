@@ -1,4 +1,7 @@
 {% if question_list %}
+
+{% if error_message %}<p><strong><h2>{{ error_message }}</h2></strong></p>{% endif %}
+
 <form action="{% url 'error_test:result' %}" method="post">
 {% csrf_token %}
     <ul>

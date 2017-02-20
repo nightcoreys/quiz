@@ -37,20 +37,31 @@ def result(request):
     point=0
     array=[]
     answers=[]
+    question_list = Question.objects.all()
     questions = request.POST.getlist('question')
     for q in questions:
-        user_answer = request.POST['user_answer-{}'.format(q)] 
-        answer = Answer.objects.only('answer_text').get(pk=q).answer_text
-        array.append(user_answer)
-        if user_answer == answer: 
-            point=point+1
-    question_list = Question.objects.all()
-    template = loader.get_template('error_test/result.html')
-    context = {
-        'question_list': question_list,
-        'point': point,
-    }
-    return HttpResponse(template.render(context, request))
+        question = get_object_or_404(Question,pk=q)
+        try:
+            user_answer = request.POST['user_answer-{}'.format(q)] 
+ 
+        except (KeyError, Choice.DoesNotExist) :
+            template = loader.get_template('error_test/detail.html')
+            context = {
+                'question_list': question_list,
+                'error_message': "Please Answer All Questions.",
+            }
+            return HttpResponse(template.render(context, request))
+        else:            
+            answer = Answer.objects.only('answer_text').get(pk=q).answer_text
+            array.append(user_answer)
+            if user_answer == answer: 
+                point=point+1
+        template = loader.get_template('error_test/result.html')
+        context = {
+            'question_list': question_list,
+            'point': point,
+        }
+        return HttpResponse(template.render(context, request))
     
 def howToUse(request):
     template = loader.get_template('error_test/howToUse.html')
