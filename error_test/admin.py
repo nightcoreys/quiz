@@ -4,10 +4,10 @@ from .models import Question
 
 from .models import Choice
 
-from .models import Answer
+#from .models import Answer
 
 admin.site.register(Question)
 
 admin.site.register(Choice)
 
-admin.site.register(Answer)
+#admin.site.register(Answer)

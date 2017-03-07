@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
-from .models import Choice, Question,Answer
+from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
@@ -35,7 +35,7 @@ def quiz(request):
     
 def result(request):
     point=0
-    array=[]
+    i=0
     answers=[]
     question_list = Question.objects.all()
     questions = request.POST.getlist('question')
@@ -52,16 +52,16 @@ def result(request):
             }
             return HttpResponse(template.render(context, request))
         else:            
-            answer = Answer.objects.only('answer_text').get(pk=q).answer_text
-            array.append(user_answer)
-            if user_answer == answer: 
+            i=i+1
+            if user_answer == 'True': 
                 point=point+1
-        template = loader.get_template('error_test/result.html')
-        context = {
-            'question_list': question_list,
-            'point': point,
-        }
-        return HttpResponse(template.render(context, request))
+    template = loader.get_template('error_test/result.html')
+    context = {
+        'question_list': question_list,
+        'point': point,
+        'total' : i,
+    }
+    return HttpResponse(template.render(context, request))
     
 def howToUse(request):
     template = loader.get_template('error_test/howToUse.html')
@@ -70,6 +70,3 @@ def howToUse(request):
 def reference(request):
     template = loader.get_template('error_test/reference.html')
     return HttpResponse(template.render(request))
-      
-
-

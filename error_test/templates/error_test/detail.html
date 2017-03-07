@@ -1,3 +1,58 @@
+<html>
+<head>
+<style>
+h1 {
+    letter-spacing: 3px;
+    text-shadow: 3px 2px blue;
+    color: #191919;
+}
+
+.w3-myfont {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+input{
+
+background:#F50000;
+
+font-family:Tahoma, Geneva, sans-serif;
+
+font-size:14px; 
+
+padding: 5px 10px 5px 10px;
+
+color: #fff;
+
+font-weight: bold;
+
+border-radius: 6px;
+
+border-radius: 6px;
+
+box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+
+
+
+border-bottom: 1px solid rgba(0,0,0,0.25);
+
+cursor: pointer;
+
+border-left:none;
+
+border-top:none;
+
+margin:10px 0 10px 0;
+
+}
+
+input:hover{
+
+background:#FF4B1A;
+
+}
+</style>
+</head>
+<body>
+
 {% if question_list %}
 
 {% if error_message %}<p><strong><h2>{{ error_message }}</h2></strong></p>{% endif %}
@@ -9,7 +64,7 @@
         <li>{{ question.question_text }}</a></li>
  <input type="hidden" name="question" value="{{ question.id }}"/>
 	{% for choice in question.choice_set.all %}
-    		<input type="radio" name= "user_answer-{{question.id}}" id="choice	 {{ forloop.counter }}" value="{{choice.choice_text}}" />
+    		<input type="radio" name= "user_answer-{{question.id}}" id="choice	 {{ forloop.counter }}" value="{{choice.is_valid}}" />
     		<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
 	{% endfor %}<br><br>
     {% endfor %}
@@ -20,3 +75,6 @@
     <p>No polls are available.</p>
 {% endif %}
 
+
+
+</body></html>
