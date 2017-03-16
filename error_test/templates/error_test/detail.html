@@ -1,57 +1,7 @@
 <html>
-<head>
-<style>
-h1 {
-    letter-spacing: 3px;
-    text-shadow: 3px 2px blue;
-    color: #191919;
-}
+{% load static %}
 
-.w3-myfont {
-    font-family: "Comic Sans MS", cursive, sans-serif;
-}
-input{
-
-background:#F50000;
-
-font-family:Tahoma, Geneva, sans-serif;
-
-font-size:14px; 
-
-padding: 5px 10px 5px 10px;
-
-color: #fff;
-
-font-weight: bold;
-
-border-radius: 6px;
-
-border-radius: 6px;
-
-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-
-
-
-border-bottom: 1px solid rgba(0,0,0,0.25);
-
-cursor: pointer;
-
-border-left:none;
-
-border-top:none;
-
-margin:10px 0 10px 0;
-
-}
-
-input:hover{
-
-background:#FF4B1A;
-
-}
-</style>
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="{% static 'error_test/style.css' %}" />
 
 {% if question_list %}
 
@@ -75,6 +25,4 @@ background:#FF4B1A;
     <p>No polls are available.</p>
 {% endif %}
 
-
-
-</body></html>
+</html>

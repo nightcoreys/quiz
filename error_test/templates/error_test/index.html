@@ -1,29 +1,10 @@
 <html>
-<head>
-<style>
-h1 {
-    letter-spacing: 3px;
-    text-shadow: 3px 2px blue;
-    color: #191919;
-}
 
-/* visited link */
-a:visited {
-    color: purple;
-}
 
-/* mouse over link */
-a:hover {
-    color: blue;
-}
+{% load static %}
 
-.w3-myfont {
-    font-family: "Comic Sans MS", cursive, sans-serif;
-}
+<link rel="stylesheet" type="text/css" href="{% static 'error_test/style.css' %}" />
 
-</style>
-</head>
-<body>
 <h1 align = center>ERROR TEST</h1><br>
 
 <div class="w3-container w3-myfont">
@@ -33,8 +14,6 @@ a:hover {
 </div>
 
     
- 
-
-</body></html>
+</html>
 
 

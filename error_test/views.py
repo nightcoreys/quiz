@@ -1,3 +1,4 @@
+import csv
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -70,3 +71,21 @@ def howToUse(request):
 def reference(request):
     template = loader.get_template('error_test/reference.html')
     return HttpResponse(template.render(request))
+
+import csv
+from django.http import HttpResponse
+
+def downloadCSVfile(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="error_test.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Questions', 'Answer'])
+    questions_list = Question.objects.all()
+    for q in Question.objects.all():
+        for c in q.choice_set.all():
+            if c.is_valid:
+                writer.writerow([q.question_text,c.choice_text ])
+
+    return response

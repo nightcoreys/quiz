@@ -1,74 +1,27 @@
 <!DOCTYPE html>
 <html>
-<h1>Your score is {{point}}/{{total}} .</h1>
+<strong><h2>Your score is {{point}}/{{total}} .</h2></strong>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'error_test/style.css' %}" />
+
+<div id="frm">
+
 <form action="{% url 'error_test:quiz' %}" method="post">
 {% csrf_token %}
-<input type="submit" value="quiz again" /><br><br>
+<input type="submit" value="quiz again" />
 </form>
-<head><style>
-table {
-    width:100%;
-}
-table, th, td {
-    border: 1px solid white;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-table#t01 tr:nth-child(even) {
-    background-color: #eee;
-}
-table#t01 tr:nth-child(odd) {
-   background-color:#fff;
-}
-table#t01 th {
-    background-color: black;
-    color: white;
-}
-
-input{
-
-background:#F50000;
-
-font-family:Tahoma, Geneva, sans-serif;
-
-font-size:14px; 
-
-padding: 5px 10px 5px 10px;
-
-color: #fff;
-
-font-weight: bold;
-
-border-radius: 6px;
-
-border-radius: 6px;
-
-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+     
+<form action="{% url 'error_test:downloadCSVfile' %}" method="post">
+{% csrf_token %}
+<input type="submit" value="download CSV" /><br><br>
+</form>
+</div>
 
 
 
-border-bottom: 1px solid rgba(0,0,0,0.25);
 
-cursor: pointer;
 
-border-left:none;
-
-border-top:none;
-
-margin:10px 0 10px 0;
-
-}
-
-input:hover{
-
-background:#FF4B1A;
-
-}
-</style></head>
-<body>
 
 {% if question_list %}
 <table id="t01">
@@ -96,5 +49,5 @@ background:#FF4B1A;
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-</body>
+
 </html>
